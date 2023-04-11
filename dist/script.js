@@ -14095,11 +14095,39 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./slider */ "./src/js/slider.js");
 /* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/modal */ "./src/js/modules/modal.js");
+/* harmony import */ var _modules_calcOverflowScroll__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/calcOverflowScroll */ "./src/js/modules/calcOverflowScroll.js");
+
 
 
 window.addEventListener('DOMContentLoaded', () => {
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  Object(_modules_calcOverflowScroll__WEBPACK_IMPORTED_MODULE_2__["default"])();
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/calcOverflowScroll.js":
+/*!**********************************************!*\
+  !*** ./src/js/modules/calcOverflowScroll.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const calcOverflowScroll = () => {
+  const div = document.createElement('div');
+  div.style.width = '50px';
+  div.style.height = '50px';
+  div.style.visibility = 'hidden';
+  div.style.overflowY = 'scroll';
+  document.body.appendChild(div);
+  const scrollWidth = div.offsetWidth - div.clientWidth;
+  div.remove();
+  return scrollWidth;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (calcOverflowScroll);
 
 /***/ }),
 
@@ -14112,21 +14140,27 @@ window.addEventListener('DOMContentLoaded', () => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _calcOverflowScroll__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./calcOverflowScroll */ "./src/js/modules/calcOverflowScroll.js");
+
+
 const modal = () => {
   function bindModal(triggerSelector, modalSelector, closeTrigger, modalTrigger) {
     const trigger = document.querySelectorAll(triggerSelector),
           modal = document.querySelector(modalSelector),
-          close = document.querySelectorAll(closeTrigger);
+          close = document.querySelectorAll(closeTrigger),
+          scrollWidth = Object(_calcOverflowScroll__WEBPACK_IMPORTED_MODULE_0__["default"])();
 
     function openModal() {
       modal.style.display = 'block';
       document.body.style.overflow = 'hidden';
       modal.classList.add('animated', 'fadeIn');
+      document.body.style.marginRight = scrollWidth + 'px';
     }
 
     function closeModal() {
       modal.style.display = 'none';
       document.body.style.overflow = '';
+      document.body.style.marginRight = '0px';
     }
 
     trigger.forEach(item => {
@@ -14153,12 +14187,12 @@ const modal = () => {
       modal.style.display = 'block';
       document.body.style.overflow = 'hidden';
       modal.classList.add('animated', 'fadeIn');
+      document.body.style.marginRight = Object(_calcOverflowScroll__WEBPACK_IMPORTED_MODULE_0__["default"])() + 'px';
     }, time);
   }
 
   bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_close', 'popup_engineer');
-  bindModal('.phone_link', '.popup', '.popup_close', 'popup');
-  openModalByTime('.popup', 3000);
+  bindModal('.phone_link', '.popup', '.popup_close', 'popup'); // openModalByTime('.popup', 3000);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modal);

@@ -1,20 +1,25 @@
+import calcOverflowScroll from "./calcOverflowScroll";
+
 const modal = () => {
 
 	function bindModal(triggerSelector, modalSelector, closeTrigger, modalTrigger) {
 
 		const trigger = document.querySelectorAll(triggerSelector),
 			modal = document.querySelector(modalSelector),
-			close = document.querySelectorAll(closeTrigger);
+			close = document.querySelectorAll(closeTrigger),
+			scrollWidth = calcOverflowScroll();
 
 		function openModal() {
 			modal.style.display = 'block';
 			document.body.style.overflow = 'hidden';
 			modal.classList.add('animated', 'fadeIn');
+			document.body.style.marginRight = scrollWidth + 'px'
 		}
 
 		function closeModal() {
 			modal.style.display = 'none';
 			document.body.style.overflow = '';
+			document.body.style.marginRight = '0px'
 		}
 
 
@@ -47,6 +52,7 @@ const modal = () => {
 			modal.style.display = 'block';
 			document.body.style.overflow = 'hidden';
 			modal.classList.add('animated', 'fadeIn');
+			document.body.style.marginRight = calcOverflowScroll() + 'px'
 			
 		}, time);
 	}
@@ -54,7 +60,7 @@ const modal = () => {
 
 	bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_close', 'popup_engineer');
 	bindModal('.phone_link', '.popup', '.popup_close', 'popup');
-	openModalByTime('.popup', 3000);
+	// openModalByTime('.popup', 3000);
 
 
 	
