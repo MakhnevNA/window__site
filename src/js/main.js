@@ -1,11 +1,12 @@
 import './slider';
 import modal from './modules/modal';
-import calcOverflowScroll from './modules/calcOverflowScroll';
+import tabs from './modules/tabs';
 
 
 window.addEventListener('DOMContentLoaded', () => {
 	
 	modal();
-	calcOverflowScroll();
+	tabs('.glazing_block', '.glazing_content', '.glazing_block a', 'active')
+	tabs('.no_click', '[data-name = "decoration"]', '.no_click', 'after_click')
 	
 });

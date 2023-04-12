@@ -14095,13 +14095,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./slider */ "./src/js/slider.js");
 /* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/modal */ "./src/js/modules/modal.js");
-/* harmony import */ var _modules_calcOverflowScroll__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/calcOverflowScroll */ "./src/js/modules/calcOverflowScroll.js");
+/* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/tabs */ "./src/js/modules/tabs.js");
 
 
 
 window.addEventListener('DOMContentLoaded', () => {
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])();
-  Object(_modules_calcOverflowScroll__WEBPACK_IMPORTED_MODULE_2__["default"])();
+  Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.glazing_block', '.glazing_content', '.glazing_block a', 'active');
+  Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.no_click', '[data-name = "decoration"]', '.no_click', 'after_click');
 });
 
 /***/ }),
@@ -14196,6 +14197,48 @@ const modal = () => {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (modal);
+
+/***/ }),
+
+/***/ "./src/js/modules/tabs.js":
+/*!********************************!*\
+  !*** ./src/js/modules/tabs.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const tabs = (triggerSelector, contentSelector, activeSelector, activeClass) => {
+  const tabsTrigger = document.querySelectorAll(triggerSelector),
+        tabsContent = document.querySelectorAll(contentSelector),
+        tabsActive = document.querySelectorAll(activeSelector);
+
+  function hideTabs() {
+    tabsContent.forEach((item, i) => {
+      item.style.display = 'none';
+    });
+    tabsActive.forEach(item => item.classList.remove(activeClass));
+  }
+
+  function showTabs(i = 0) {
+    tabsContent[i].style.display = 'block';
+    tabsContent[i].classList.add('animated', 'fadeIn');
+    tabsActive[i].classList.add(activeClass);
+  }
+
+  hideTabs();
+  showTabs();
+  tabsTrigger.forEach((item, i) => {
+    item.addEventListener('click', e => {
+      console.log(tabsContent);
+      hideTabs();
+      showTabs(i);
+    });
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (tabs);
 
 /***/ }),
 
