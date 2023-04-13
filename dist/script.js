@@ -14096,6 +14096,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./slider */ "./src/js/slider.js");
 /* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/modal */ "./src/js/modules/modal.js");
 /* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/tabs */ "./src/js/modules/tabs.js");
+/* harmony import */ var _service_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./service/forms */ "./src/js/service/forms.js");
+
 
 
 
@@ -14103,6 +14105,7 @@ window.addEventListener('DOMContentLoaded', () => {
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])();
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.glazing_block', '.glazing_content', '.glazing_block a', 'active');
   Object(_modules_tabs__WEBPACK_IMPORTED_MODULE_2__["default"])('.no_click', '[data-name = "decoration"]', '.no_click', 'after_click');
+  Object(_service_forms__WEBPACK_IMPORTED_MODULE_3__["default"])();
 });
 
 /***/ }),
@@ -14239,6 +14242,56 @@ const tabs = (triggerSelector, contentSelector, activeSelector, activeClass) => 
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (tabs);
+
+/***/ }),
+
+/***/ "./src/js/service/forms.js":
+/*!*********************************!*\
+  !*** ./src/js/service/forms.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const forms = () => {
+  const form = document.querySelectorAll('form'),
+        btn = document.querySelectorAll('.btn-block');
+  const message = {
+    loading: 'Загрузка...',
+    success: 'Данные успешно отправлены',
+    fail: 'Что-то пошло не так'
+  };
+
+  const posData = (url, data) => {
+    let res = fetch(url, {
+      method: 'POST',
+      body: data
+    }).then(res => res.text()).then(console.log(res)); // return await res.text()
+  };
+
+  form.forEach(item => {
+    item.addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = new FormData(item);
+      posData('assets/server.php', formData);
+    });
+  }); // }
+  // posData('server.php', formData)
+  // let result = res.rext()
+  // .then(res => {
+  // 	res.text()
+  // 	console.log(res)
+  // })
+  // btn.addEventListener('click', () => {
+  // });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (forms);
 
 /***/ }),
 
