@@ -1,4 +1,4 @@
-const checkInputs = () => {
+const checkNumberInputs = () => {
 
 	const numberInput = document.querySelectorAll('input[name = "user_phone"]');
 	
@@ -33,4 +33,4 @@ const checkInputs = () => {
 
 }
 
-export default checkInputs;
+export default checkNumberInputs;

@@ -1,8 +1,9 @@
 import calcOverflowScroll from "./calcOverflowScroll";
+import hideModal from "./hideModal";
 
 const modal = () => {
 
-	function bindModal(triggerSelector, modalSelector, closeTrigger, modalTrigger) {
+	function bindModal(triggerSelector, modalSelector, closeTrigger, modalTrigger, prevClose = true) {
 
 		const trigger = document.querySelectorAll(triggerSelector),
 			modal = document.querySelector(modalSelector),
@@ -10,6 +11,7 @@ const modal = () => {
 			scrollWidth = calcOverflowScroll();
 
 		function openModal() {
+			hideModal()
 			modal.style.display = 'block';
 			document.body.style.overflow = 'hidden';
 			modal.classList.add('animated', 'fadeIn');
@@ -37,7 +39,7 @@ const modal = () => {
 
 		modal.addEventListener('click', (e) => {
 			const target = e.target;
-			if (target && target.classList.contains(modalTrigger)) {
+			if (target && target.classList.contains(modalTrigger) && prevClose) {
 				closeModal();
 			}
 		});
@@ -60,6 +62,10 @@ const modal = () => {
 
 	bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_close', 'popup_engineer');
 	bindModal('.phone_link', '.popup', '.popup_close', 'popup');
+	bindModal('.popup_calc_btn', '.popup_calc', '.popup_calc_close', 'popup_calc');
+	bindModal('.popup_calc_button', '.popup_calc_profile', '.popup_calc_profile_close', 'popup_calc_profile', false);
+	bindModal('.popup_calc_profile_button', '.popup_calc_end', '.popup_calc_end_close', 'popup_calc_end', false);
+
 	// openModalByTime('.popup', 3000);
 
 

@@ -1,10 +1,10 @@
-import checkInputs from "../modules/checkInputs";
+import checkNumberInputs from "../modules/checkNumberInputs";
+import hideModal from "../modules/hideModal";
 
-const forms = () => {
+const forms = (state) => {
 	
 	const form = document.querySelectorAll('form'),
 		input = document.querySelectorAll('input');
-	
 	
 
 	function clearInputs() {
@@ -13,7 +13,7 @@ const forms = () => {
 		});
 	}
 
-	checkInputs();
+	checkNumberInputs();
 
 	
 	const message = {
@@ -47,21 +47,29 @@ const forms = () => {
 
 
 			const formData = new FormData(item);
+			if (item.getAttribute('form-end') === 'end') {
+				for (let key in state) {
+					formData.append(key, state[key]);
+				}
+			}
 
 			postData('assets/server.php', formData)
 				.then(res => {
 					console.log(res)
 					statusMessage.textContent = message.success;
-
+					setTimeout(() => {
+						statusMessage.remove();
+						hideModal()
+					}, 3000);
+					clearInputs();
+					
 				})
 				.catch(() => {
 					statusMessage.textContent = message.fail;
 				})
 				.finally(() => {
-					clearInputs();
-					setTimeout(() => {
-						statusMessage.remove();
-					}, 3000);
+					// clearInputs();
+					
 				})
 
 			

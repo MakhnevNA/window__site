@@ -30,23 +30,12 @@ const tabs = (triggerSelector, contentSelector, activeSelector, activeClass) => 
 
 	tabsTrigger.forEach((item, i) => {
 		item.addEventListener('click', (e) => {
-
-			console.log(tabsContent)
-			
-
-			
 			hideTabs();
 			showTabs(i);
-			
-			
 		});
 
-		
-	})
+	});
 	
-
-
-
 }
 
 export default tabs;
