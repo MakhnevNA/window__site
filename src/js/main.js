@@ -5,6 +5,8 @@ import forms from './service/forms';
 import checkSizeInputs from './modules/checkSizeInputs';
 import showImage from './modules/showImage';
 import changeFormState from './modules/changeFormState';
+import clickImages from './modules/clickImages';
+import timer from './modules/timer';
 
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -20,5 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	checkSizeInputs();
 	showImage();
 	changeFormState(data)
+	clickImages();
+	timer('2023-06-02')
 	
 });
