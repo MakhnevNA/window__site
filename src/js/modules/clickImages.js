@@ -1,53 +1,44 @@
+import calcOverflowScroll from "./calcOverflowScroll";
+
 const clickImages = () => {
 
-	const img = document.querySelectorAll('.preview'),
-		parent = document.querySelector('.works .row')
-
-
-	function showBigImage(i) {
-		const div = document.createElement('div'),
-			img = document.createElement('img');
-		
-		div.append(img)
-		div.classList.add('popup');
-		div.style.display = 'block';
-		div.style.textAlign = 'center';
-		div.style.background = 'rgba(0, 0, 0, 0.8)';
-		document.body.style.overflow = 'hidden'
-		img.setAttribute('src', `assets/img/our_works/big_img/${i + 1}.png`)
-		parent.append(div)
-	}
-
-
-
-	function closeBigImage() {
-		
-	}
-
+	const imgPopup = document.createElement('div'),
+		workSection = document.querySelector('.works'),
+		bigImage = document.createElement('img'),
+		scroll = calcOverflowScroll();
 	
-	parent.addEventListener('click', (e) => {
+	
+	imgPopup.classList.add('popup');
+	workSection.appendChild(imgPopup);
 
-		const target = e.target;
-		e.preventDefault()
+	imgPopup.style.justifyContent = 'center'
+	imgPopup.style.alignItems = 'center'
+	imgPopup.style.display = 'none'
 
-		// const div = document.createElement('div'),
-		// 			imgs = document.createElement('img');
+	imgPopup.appendChild(bigImage);
+
+
+	workSection.addEventListener('click', (e) => {
+		e.preventDefault();
+
+		let target = e.target;
+
+		if (target && target.classList.contains('preview')) {
+			imgPopup.style.display = 'flex';
+			document.body.style.marginRight = `${scroll}px`; 
+			document.body.style.overflow = 'hidden'
+			imgPopup.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+			const path = target.parentNode.getAttribute('href');
+			bigImage.setAttribute('src', path);
+		}
 		
-		img.forEach( function (item, i){
-			
-			if (item === target) {
-				showBigImage(i)
-
-
-			}
-
-		});
-
+		if (target && target.matches('div.popup')) {
+			imgPopup.style.display = 'none';
+			document.body.style.overflow = ''
+			document.body.style.marginRight = `0px`; 
+		}
 
 	});
-	
-
-
 }
 
 
